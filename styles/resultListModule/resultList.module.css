@@ -1,24 +1,42 @@
 .main {
-    width: 1000px;
-    height: 100%;
-    border: 1px solid;
-    border-color: rgba(0, 0, 0, 0.2);
-    overflow: scroll;
+  width: 1000px;
+  height: 100%;
+  /* border: 1px solid; */
+  /* border-color: rgba(0, 0, 0, 0.2); */
+  overflow: scroll;
+  background-color: #e0e0e0;
+  padding-top: 10px;
+  border-radius: 7px;
+  background: #e0e0e0;
+  
 }
+
 .main::-webkit-scrollbar {
-    width: 5px;
-    height: 0px;
- 
- }
- 
- .main::-webkit-scrollbar-thumb {
-    background-color: silver;
-    box-shadow: 0 0 30px white,
- 
- }
- .item{
-   display: grid;
-   grid-template-columns: 30px 1fr;
-   grid-template-areas: 
-   "n c";
- }
+  width: 5px;
+  height: 0px;
+
+}
+
+.main::-webkit-scrollbar-thumb {
+  background-color: silver;
+  box-shadow: 0 0 30px white;
+  display: none;
+
+}
+.main:hover::-webkit-scrollbar-thumb {
+  display: block;
+
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  margin: 0 10px 30px 10px;
+  
+  grid-template-areas:
+    "n c";
+    border-radius: 7px;
+    background: #e0e0e0;
+    box-shadow:  2px 2px 7px #b3b3b3,
+                 -2px -2px 7px #ffffff;
+}
