@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div className='content'>
       <ImgLoader getContentItem = {getContentItem} />
-      <ResultList contentItem = {contentItem}/>
+      <ResultList contentItem = {contentItem} getContentItem = {getContentItem}/>
     </div>
   )
 }
