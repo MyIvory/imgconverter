@@ -8,7 +8,7 @@
   padding-top: 10px;
   border-radius: 7px;
   background: #e0e0e0;
-  
+
 }
 
 .main::-webkit-scrollbar {
@@ -23,6 +23,7 @@
   display: none;
 
 }
+
 .main:hover::-webkit-scrollbar-thumb {
   display: block;
 
@@ -30,13 +31,51 @@
 
 .item {
   display: grid;
-  grid-template-columns: 30px 1fr;
+  grid-template-columns: auto 1fr 100px ;
   margin: 0 10px 30px 10px;
-  
+
   grid-template-areas:
-    "n c";
-    border-radius: 7px;
-    background: #e0e0e0;
-    box-shadow:  2px 2px 7px #b3b3b3,
-                 -2px -2px 7px #ffffff;
+    "n c t";
+  border-radius: 7px;
+  background: #e0e0e0;
+  box-shadow: 2px 2px 7px #b3b3b3,
+    -2px -2px 7px #ffffff;
+}
+.item_content{
+  grid-area: c;
+}
+.item_content h4{
+  margin: 20px;
+}
+.item_number {
+  grid-area: n;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% + 5px);
+  margin-left: 5px;
+}
+
+.item_number span {
+  width: 85%;
+  padding-right: px;
+  border-right: 2px solid silver;
+  color: gray;
+  font-weight: 400;
+}
+.tools{
+  grid-area: t;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+}
+.icons{
+  font-size: 25px;
+  color: gray;
+}
+.icons:hover{
+  font-size: 30px;
+  color:black;
 }

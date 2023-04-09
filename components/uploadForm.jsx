@@ -1,7 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Modal, Upload, message } from 'antd';
 import { useState, useEffect } from 'react';
-import styled from 'styled-components';
+
 
 const getBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -32,7 +32,6 @@ const ImgLoader = (props) => {
                         url: reader.result,
                         originFileObj: file,
                     };
-                    console.log(newFile)
                     setFileList([newFile]);
                 };
             }
@@ -68,38 +67,40 @@ const ImgLoader = (props) => {
             </div>
         </div>
     );
-    const handleUpload = () => {
+    const handleUpload = async () => {
         if (fileList.length > 0) {
-            const file = fileList[0];
-            console.log(file)
-            if (!file.originFileObj.type.startsWith('image/')) {
-              modal.error({title: "Error", content: (<span>Select image file</span>)});
-              return;
-            }
-            const formData = new FormData();
-            console.log(fileList)
-            let new_file = new File([fileList[0].originFileObj], fileList[0].name)
-
-            formData.append("image", new_file)
-
-            fetch('http://localhost/imgconverter/GCV.php', {
-                method: 'POST',
-                body: formData,
-            })
-                .then(response => response.text())
-                .then(text => {
-                    console.log("-->>"+text.length);
-
-                    props.getContentItem(text)
-                    setFileList([]);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+          const file = fileList[0];
+         
+          if (!file.originFileObj.type.startsWith("image/")) {
+            modal.error({
+              title: "Error",
+              content: <span>Select image file</span>,
+            });
+            return;
+          }
+          const formData = new FormData();
+          let new_file = new File([fileList[0].originFileObj], fileList[0].name);
+      
+          formData.append("image", new_file);
+      
+          try {
+            const response = await fetch("http://localhost/imgtextreader/GCV.php", {
+              method: "POST",
+              body: formData,
+            });
+            const text = await response.text();
+            props.getContentItem({id:Date.now(),text:text});
+            setFileList([]);
+          } catch (error) {
+            console.error(error);
+          }
         } else {
-            modal.error({title:"Error",content:(<span>Select file</span>)})
+          modal.error({
+            title: "Error",
+            content: <span>Select file</span>,
+          });
         }
-    };
+      };
 
 
 
