@@ -43,10 +43,11 @@
 }
 .item_content{
   grid-area: c;
+  margin: 5px 20px 5px 20px;
 }
-.item_content h4{
+/* .item_content {
   margin: 20px;
-}
+} */
 .item_number {
   grid-area: n;
   display:flex;

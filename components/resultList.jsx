@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo, useRef } from "react";
 import s from "../styles/resultListModule/resultList.module.css";
-import { Button, Input, Modal } from "antd";
+import { Button, Input, Modal, Tooltip, message } from "antd";
 import $ from "jquery";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineCopy } from "react-icons/ai";
 // import { Editor, EditorState, convertFromRaw } from "draft-js";
@@ -10,6 +10,7 @@ const ResultList = (props) => {
   const [elements, setElements] = useState([]);
   const containerRef = useRef(null);
   const [modal, contextHolder] = Modal.useModal();
+  const [messageApi, messageHolder] = message.useMessage()
   const [editorContent, setEditorContent] = useState("");
 
   useMemo(() => {
@@ -35,7 +36,7 @@ const ResultList = (props) => {
     try {
       const response = await $.ajax({
         type: "POST",
-        url: "http://localhost/imgconverter/save_session.php",
+        url: "http://localhost/imgtextreader/save_session.php",//imgconverter
         data: { data: session_data },
       });
 
@@ -94,10 +95,23 @@ const ResultList = (props) => {
           return prevContent;
         });
       },
-      onCancel: () => {},
+      onCancel: () => { },
     });
   };
   /////////////////////////////
+  const copyItem = (id) => {
+    const $textarea = $('<textarea/>', {
+      val: $(`#${id}`).text()
+    }).appendTo('body')
+    console.log($textarea)
+    $textarea.select();
+    document.execCommand('copy');
+    $textarea.remove();
+    messageApi.open({
+      type: 'success',
+      content: 'Text copy',
+    });
+  }
   let num = 0;
   return (
     <>
@@ -113,10 +127,11 @@ const ResultList = (props) => {
                 </div>
                 <div className={s.item_content}>
                   {/* <span>{item.text}</span> */}
-                  <span dangerouslySetInnerHTML={{__html: item.text}}></span>
+                  <span id={item.id} dangerouslySetInnerHTML={{ __html: item.text }}></span>
 
                 </div>
                 <div className={s.tools}>
+                <Tooltip title="Edit">
                   <AiOutlineEdit
                     className={s.icons}
                     style={{
@@ -127,7 +142,13 @@ const ResultList = (props) => {
                     }}
                     onClick={() => editItem(item)}
                   />
-                  <AiOutlineCopy className={s.icons} />
+                  </Tooltip>
+                  <Tooltip title="Copy">
+                  <AiOutlineCopy className={s.icons} onClick={() => {
+                    copyItem(item.id)
+                  }} />
+                  </Tooltip>
+                  <Tooltip title="Delete">
                   <AiOutlineDelete
                     className={s.icons}
                     style={{
@@ -140,6 +161,7 @@ const ResultList = (props) => {
                       deleteItem(item.id);
                     }}
                   />
+                  </Tooltip>
                 </div>
               </div>
             );
@@ -149,6 +171,7 @@ const ResultList = (props) => {
         Save
       </Button>
       {contextHolder}
+      {messageHolder}
     </>
   );
 };

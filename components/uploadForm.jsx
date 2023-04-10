@@ -84,7 +84,7 @@ const ImgLoader = (props) => {
           formData.append("image", new_file);
       
           try {
-            const response = await fetch("http://localhost/imgconverter/GCV.php", {
+            const response = await fetch("http://localhost/imgtextreader/GCV.php", { //imgconverter
               method: "POST",
               body: formData,
             });
