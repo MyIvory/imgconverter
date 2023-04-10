@@ -2,34 +2,32 @@ import { useEffect, useState, useMemo, useRef } from "react";
 import s from "../styles/resultListModule/resultList.module.css";
 import { Button, Input, Modal } from "antd";
 import $ from "jquery";
-import { AiOutlineDelete, AiOutlineEdit,AiOutlineCopy } from 'react-icons/ai';
-
-
-
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineCopy } from "react-icons/ai";
+// import { Editor, EditorState, convertFromRaw } from "draft-js";
+import { Editor } from "@tinymce/tinymce-react";
 
 const ResultList = (props) => {
   const [elements, setElements] = useState([]);
   const containerRef = useRef(null);
-  const [modal, contextHolder] = Modal.useModal()
+  const [modal, contextHolder] = Modal.useModal();
+  const [editorContent, setEditorContent] = useState("");
 
   useMemo(() => {
-    let el = props.contentItem
-    console.log(el)
+    let el = props.contentItem;
+    console.log(el);
     setElements((prevElements) => {
       if (props.contentItem !== null) {
-        return [...prevElements, el]
+        return [...prevElements, el];
       } else {
-        return []
+        return [];
       }
-
     });
   }, [props.contentItem]);
 
   useEffect(() => {
-    if (containerRef.current.lastChild != null) containerRef.current.lastChild.scrollIntoView({ behavior: "smooth" });
-
+    if (containerRef.current.lastChild != null)
+      containerRef.current.lastChild.scrollIntoView({ behavior: "smooth" });
   }, [elements]);
-
 
   const saveSession = async () => {
     const session_data = { session_name: "JScript", session_data: elements };
@@ -37,7 +35,7 @@ const ResultList = (props) => {
     try {
       const response = await $.ajax({
         type: "POST",
-        url: "http://localhost/imgtextreader/save_session.php",
+        url: "http://localhost/imgconverter/save_session.php",
         data: { data: session_data },
       });
 
@@ -47,36 +45,66 @@ const ResultList = (props) => {
     }
   };
 
-  // const deleteItem = (id) => {
-  //   setElements(prevElements => {
-  //     const index = prevElements.findIndex(item => item.id === id);
-  //     if (index === -1) {
-  //       return prevElements;
-  //     }
-  //     prevElements.splice(index, 1);
-  //     return [...prevElements];
-  //   });
-  // }
-
-
-
-  // const editItem = (text) => {
-  //   modal.info({
-  //     title: "Error",
-  //     width: 600,
-  //     content: <div>
-  //       <Input addonBefore={<AiOutlineEdit />} value={text} />
-      
-  //     </div>,
-  //   });
-  // }
+  const deleteItem = (id) => {
+    setElements((prevElements) => {
+      const index = prevElements.findIndex((item) => item.id === id);
+      if (index === -1) {
+        return prevElements;
+      }
+      prevElements.splice(index, 1);
+      return [...prevElements];
+    });
+  };
+  ///////////////////////////
+  const editItem = (item) => {
+    setEditorContent(item.text);
+    modal.confirm({
+      title: "Edit Item",
+      icon: null,
+      width: "80vw",
+      content: (
+        <Editor
+          initialValue={item.text}
+          onEditorChange={(content) => setEditorContent(content)}
+          apiKey="k8hk86kuqv28tv797qm250k1wpqak5b4w6gksbtsq50w27rm"
+          init={{
+            height: 500,
+            menubar: true,
+            selector: "textarea",
+            plugins:
+              "anchor autolink charmap link lists searchreplace wordcount",
+            toolbar:
+              "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+          }}
+        />
+      ),
+      okText: "Save",
+      cancelText: "Cancel",
+      onOk: () => {
+        setEditorContent((prevContent) => {
+          setElements((prevElements) => {
+            const index = prevElements.findIndex((el) => el.id === item.id);
+            if (index === -1) {
+              return prevElements;
+            }
+            const newItem = { ...prevElements[index], text: prevContent };
+            prevElements.splice(index, 1, newItem);
+            return [...prevElements];
+          });
+          return prevContent;
+        });
+      },
+      onCancel: () => {},
+    });
+  };
+  /////////////////////////////
   let num = 0;
   return (
     <>
       <div className={s.main} ref={containerRef}>
-        {
-          elements.filter(item => item !== null).map((item, index) => {
-
+        {elements
+          .filter((item) => item !== null)
+          .map((item, index) => {
             num += 1;
             return (
               <div key={index} className={s.item}>
@@ -84,16 +112,37 @@ const ResultList = (props) => {
                   <span>{num}</span>
                 </div>
                 <div className={s.item_content}>
-                  <h4>{item.text}</h4>
+                  {/* <span>{item.text}</span> */}
+                  <span dangerouslySetInnerHTML={{__html: item.text}}></span>
+
                 </div>
                 <div className={s.tools}>
-                  <AiOutlineEdit className={s.icons} style={{ position: "absolute", top: "50%", transform: "translateY(-50%)", left: 5 }} onClick={() => editItem(item.text)} />
+                  <AiOutlineEdit
+                    className={s.icons}
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      left: 5,
+                    }}
+                    onClick={() => editItem(item)}
+                  />
                   <AiOutlineCopy className={s.icons} />
-                  <AiOutlineDelete className={s.icons} style={{ position: "absolute", top: "50%", transform: "translateY(-50%)", right: 0 }} onClick={() => { deleteItem(item.id) }} />
+                  <AiOutlineDelete
+                    className={s.icons}
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      right: 0,
+                    }}
+                    onClick={() => {
+                      deleteItem(item.id);
+                    }}
+                  />
                 </div>
               </div>
             );
-
           })}
       </div>
       <Button onClick={saveSession} className="saveButton">
@@ -104,4 +153,5 @@ const ResultList = (props) => {
   );
 };
 export default ResultList;
+
 

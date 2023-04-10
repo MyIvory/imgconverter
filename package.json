@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tinymce/tinymce-react": "^4.3.0",
     "antd": "^5.4.0",
+    "draft-js": "^0.11.7",
     "jquery": "^3.6.4",
     "next": "13.2.4",
     "react": "18.2.0",
