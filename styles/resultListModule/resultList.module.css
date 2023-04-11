@@ -1,13 +1,10 @@
 .main {
-  width: 1000px;
-  height: 100%;
-  /* border: 1px solid; */
-  /* border-color: rgba(0, 0, 0, 0.2); */
+  width: 60%;
+  min-width: 500px;
+  height: auto;
   overflow: scroll;
-  background-color: #e0e0e0;
   padding-top: 10px;
   border-radius: 7px;
-  background: #e0e0e0;
 
 }
 
@@ -18,8 +15,7 @@
 }
 
 .main::-webkit-scrollbar-thumb {
-  background-color: silver;
-  box-shadow: 0 0 30px white;
+  background-color: white;
   display: none;
 
 }
@@ -33,21 +29,18 @@
   display: grid;
   grid-template-columns: auto 1fr 100px ;
   margin: 0 10px 30px 10px;
-
+color: white;
   grid-template-areas:
     "n c t";
   border-radius: 7px;
-  background: #e0e0e0;
-  box-shadow: 2px 2px 7px #b3b3b3,
-    -2px -2px 7px #ffffff;
+  background: rgba(47, 150, 245, 0.9);
+  box-shadow: 2px 2px 7px black,
+    -1px -1px 5px #ffffff; 
 }
 .item_content{
   grid-area: c;
   margin: 5px 20px 5px 20px;
 }
-/* .item_content {
-  margin: 20px;
-} */
 .item_number {
   grid-area: n;
   display:flex;
@@ -58,10 +51,10 @@
 }
 
 .item_number span {
+  color: white;
   width: 85%;
   padding-right: px;
   border-right: 2px solid silver;
-  color: gray;
   font-weight: 400;
 }
 .tools{
@@ -74,9 +67,17 @@
 }
 .icons{
   font-size: 25px;
-  color: gray;
+  color: white;
 }
 .icons:hover{
   font-size: 30px;
   color:black;
+}
+
+@media (max-width:600px) {
+  .main{
+      width: 90%;
+      min-width: 0;
+  }
+
 }

@@ -6,12 +6,15 @@ import { AiOutlineDelete, AiOutlineEdit, AiOutlineCopy } from "react-icons/ai";
 // import { Editor, EditorState, convertFromRaw } from "draft-js";
 import { Editor } from "@tinymce/tinymce-react";
 
+
+
 const ResultList = (props) => {
   const [elements, setElements] = useState([]);
   const containerRef = useRef(null);
   const [modal, contextHolder] = Modal.useModal();
   const [messageApi, messageHolder] = message.useMessage()
   const [editorContent, setEditorContent] = useState("");
+  const [mainStyle, setMainstyle] = useState({})
 
   useMemo(() => {
     let el = props.contentItem;
@@ -26,8 +29,16 @@ const ResultList = (props) => {
   }, [props.contentItem]);
 
   useEffect(() => {
-    if (containerRef.current.lastChild != null)
-      containerRef.current.lastChild.scrollIntoView({ behavior: "smooth" });
+    if (containerRef.current.lastChild != null) containerRef.current.lastChild.scrollIntoView({ behavior: "smooth" });
+    if(containerRef.current.childElementCount>0){
+      setMainstyle(
+        {
+          backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0) 10%, rgba(255,255,255,0.5) 100%)',
+        }
+      )
+    }else{
+      setMainstyle({})
+    }
   }, [elements]);
 
   const saveSession = async () => {
@@ -72,6 +83,7 @@ const ResultList = (props) => {
             height: 500,
             menubar: true,
             selector: "textarea",
+
             plugins:
               "anchor autolink charmap link lists searchreplace wordcount",
             toolbar:
@@ -115,9 +127,8 @@ const ResultList = (props) => {
   let num = 0;
   return (
     <>
-      <div className={s.main} ref={containerRef}>
-        {elements
-          .filter((item) => item !== null)
+      <div className={s.main} ref={containerRef} style={mainStyle}>
+        {elements.filter((item) => item !== null)
           .map((item, index) => {
             num += 1;
             return (
@@ -126,50 +137,50 @@ const ResultList = (props) => {
                   <span>{num}</span>
                 </div>
                 <div className={s.item_content}>
-                  {/* <span>{item.text}</span> */}
-                  <span id={item.id} dangerouslySetInnerHTML={{ __html: item.text }}></span>
+                  <span>{item.text}</span>
+                  {/* <span id={item.id} dangerouslySetInnerHTML={{ __html: item.text }}></span> */}
 
                 </div>
                 <div className={s.tools}>
-                <Tooltip title="Edit">
-                  <AiOutlineEdit
-                    className={s.icons}
-                    style={{
-                      position: "absolute",
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      left: 5,
-                    }}
-                    onClick={() => editItem(item)}
-                  />
+                  <Tooltip title="Edit">
+                    <AiOutlineEdit
+                      className={s.icons}
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        left: 5,
+                      }}
+                      onClick={() => editItem(item)}
+                    />
                   </Tooltip>
                   <Tooltip title="Copy">
-                  <AiOutlineCopy className={s.icons} onClick={() => {
-                    copyItem(item.id)
-                  }} />
+                    <AiOutlineCopy className={s.icons} onClick={() => {
+                      copyItem(item.id)
+                    }} />
                   </Tooltip>
                   <Tooltip title="Delete">
-                  <AiOutlineDelete
-                    className={s.icons}
-                    style={{
-                      position: "absolute",
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      right: 0,
-                    }}
-                    onClick={() => {
-                      deleteItem(item.id);
-                    }}
-                  />
+                    <AiOutlineDelete
+                      className={s.icons}
+                      style={{
+                        position: "absolute",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        right: 0,
+                      }}
+                      onClick={() => {
+                        deleteItem(item.id);
+                      }}
+                    />
                   </Tooltip>
                 </div>
               </div>
             );
           })}
       </div>
-      <Button onClick={saveSession} className="saveButton">
+      {/* <Button onClick={saveSession} className="saveButton">
         Save
-      </Button>
+      </Button> */}
       {contextHolder}
       {messageHolder}
     </>
