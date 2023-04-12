@@ -4,9 +4,10 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import ImgLoader from "@/components/uploadForm";
 import ResultList from "@/components/resultList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "@/components/header";
 import { Button, Modal, Upload, message } from "antd";
+import { useCookies } from "react-cookie";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,15 +16,38 @@ export default function Home() {
   const [fileList, setFileList] = useState([]);
   const [modal, contextHolder] = Modal.useModal();
   const [counter, setCounter] = useState(0);
+  const [cookies, setCookie] = useCookies(["counter"]);
 
+  // Эффект для получения значения счетчика из cookie
+  useEffect(() => {
+    if (cookies.counter) {
+      setCounter(parseInt(cookies.counter));
+    }
+  }, [cookies.counter]);
+
+  // Эффект для сохранения значения счетчика в cookie
+  useEffect(() => {
+    document.cookie = `counter=${counter}; max-age=${60}; path=/`;
+  }, [counter]);
+
+  // Функция для инкрементирования счетчика
   function incrementCounter() {
-    setCounter(prevCount => prevCount + 1);
+    setCounter((prevCount) => prevCount + 1);
   }
+  // Функция для обработки загрузки файлов
   const handleUpload = async () => {
     console.log("click");
     if (fileList.length > 0) {
+      // Проверка лимита на количество запросов
+      if (counter >= 2) {
+        modal.error({
+          title: "Error",
+          content: "You have reached the limit of 10 text reads per day.",
+        });
+        return;
+      }
+      // Проверка типа загруженного файла
       const file = fileList[0];
-
       if (!file.originFileObj.type.startsWith("image/")) {
         modal.error({
           title: "Error",
@@ -31,6 +55,7 @@ export default function Home() {
         });
         return;
       }
+      // Отправка запроса на сервер для получения текста из изображения
       const formData = new FormData();
       let new_file = new File([fileList[0].originFileObj], fileList[0].name);
 
@@ -45,7 +70,7 @@ export default function Home() {
         const text = await response.text();
         getContentItem({ id: Date.now(), text: text });
         setFileList([]);
-        incrementCounter()
+        incrementCounter();
       } catch (error) {
         console.error(error);
       }
@@ -56,7 +81,7 @@ export default function Home() {
       });
     }
   };
-
+  // Функция для установки выбранного контента
   function getContentItem(item) {
     setContentItem(item);
   }
@@ -64,18 +89,16 @@ export default function Home() {
     <>
       <Header
         handleUpload={handleUpload}
-        contentItem={contentItem}
-        getContentItem={getContentItem}
         counter={counter}
       />
       <div className="content">
         <ImgLoader
-          getContentItem={getContentItem}
           fileList={fileList}
           setFileList={setFileList}
         />
-        <ResultList contentItem={contentItem} getContentItem={getContentItem} />
+        <ResultList contentItem={contentItem}/>
       </div>
+      
       {contextHolder}
     </>
   );
