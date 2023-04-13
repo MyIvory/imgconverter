@@ -34,10 +34,29 @@
     margin: auto;
 }
 
+.read_button,
+.save_button {
+    border-radius: 5px;
+    width: 100px;
+    text-align: center;
+    transition: all 500ms;
+}
+
 .read_button:hover,
 .save_button:hover {
+    /* Стили при наведении */
     cursor: pointer;
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 1), inset 0 0 20px 12px rgba(255, 255, 255, 1);
+    color: black;
+    transition: all 500ms;
 }
+
+.read_button:not(:hover),
+.save_button:not(:hover) {
+    /* Стили без наведения */
+    transition: all 500ms reverse;
+}
+
 
 .local {
     grid-area: l;
@@ -47,6 +66,8 @@
     margin: auto 20px;
     column-gap: 15px;
 }
+
+
 
 @media (max-width:600px) {
     .main{

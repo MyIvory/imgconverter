@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, useRef } from "react";
-import s from "../styles/resultListModule/resultList.module.css";
+import s from "../styles/resultListModule/resultListModule.module.css";
 import { Button, Input, Modal, Tooltip, message } from "antd";
 import $ from "jquery";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineCopy } from "react-icons/ai";

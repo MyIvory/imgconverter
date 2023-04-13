@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import ImgLoader from "@/components/uploadForm";
+import ImgLoader from "@/components/imgLoader";
 import ResultList from "@/components/resultList";
 import { useEffect, useState } from "react";
 import Header from "@/components/header";
@@ -29,7 +29,7 @@ export default function Home() {
   useEffect(() => {
     document.cookie = `counter=${counter}; max-age=${60}; path=/`;
   }, [counter]);
-
+  
   // Функция для инкрементирования счетчика
   function incrementCounter() {
     setCounter((prevCount) => prevCount + 1);
@@ -71,6 +71,7 @@ export default function Home() {
         getContentItem({ id: Date.now(), text: text });
         setFileList([]);
         incrementCounter();
+        
       } catch (error) {
         console.error(error);
       }
@@ -87,18 +88,12 @@ export default function Home() {
   }
   return (
     <>
-      <Header
-        handleUpload={handleUpload}
-        counter={counter}
-      />
+      <Header handleUpload={handleUpload} counter={counter} />
       <div className="content">
-        <ImgLoader
-          fileList={fileList}
-          setFileList={setFileList}
-        />
-        <ResultList contentItem={contentItem}/>
+        <ImgLoader fileList={fileList} setFileList={setFileList} />
+        <ResultList contentItem={contentItem} />
       </div>
-      
+
       {contextHolder}
     </>
   );

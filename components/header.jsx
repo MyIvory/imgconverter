@@ -5,7 +5,7 @@ return (
     <div className={s.main}>
         <div className={s.user}><span>User name</span> </div>
         <div className={s.tools}>
-            <div className={s.read_button} onClick={props.handleUpload}>Read</div>
+            <div className={s.read_button} id="read_button" onClick={props.handleUpload}>Read</div>
             <div className={s.counter} style={{fontSize:36}}>{props.counter}</div>
             <div className={s.save_button}>Save</div>
         </div>
