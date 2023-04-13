@@ -87,44 +87,6 @@ const ImgLoader = (props) => {
             </div>
         </div>
     );
-
-    // const handleUpload = async () => {
-    //     if (fileList.length > 0) {
-    //       const file = fileList[0];
-
-    //       if (!file.originFileObj.type.startsWith("image/")) {
-    //         modal.error({
-    //           title: "Error",
-    //           content: <span>Select image file</span>,
-    //         });
-    //         return;
-    //       }
-    //       const formData = new FormData();
-    //       let new_file = new File([fileList[0].originFileObj], fileList[0].name);
-
-    //       formData.append("image", new_file);
-
-    //       try {
-    //         const response = await fetch("http://localhost/imgtextreader/GCV.php", { //imgconverter
-    //           method: "POST",
-    //           body: formData,
-    //         });
-    //         const text = await response.text();
-    //         props.getContentItem({id:Date.now(),text:text});
-    //         setFileList([]);
-    //       } catch (error) {
-    //         console.error(error);
-    //       }
-    //     } else {
-    //       modal.error({
-    //         title: "Error",
-    //         content: <span>Select file</span>,
-    //       });
-    //     }
-    //   };
-
-
-
     return (
         <>
          <div className={`${s.uploadBlock} ${dragging ? s.dragging : ''}`} 
