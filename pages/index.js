@@ -16,66 +16,20 @@ export default function Home() {
   const [fileList, setFileList] = useState([]);
   const [modal, contextHolder] = Modal.useModal();
   const [counter, setCounter] = useState(0);
-  const [cookies, setCookies] = useCookies(["counter"]);
-  const [timer, setTimer] = useState("00:00:00");
+  const [cookies, setCookie] = useCookies(["counter"]);
 
   // Эффект для получения значения счетчика из cookie
   useEffect(() => {
     if (cookies.counter) {
       setCounter(parseInt(cookies.counter));
-      let remainingTime = cookies.maxAge || 60;
-      const timer = setInterval(() => {
-        const hours = Math.floor(remainingTime / 3600); // вычисляем количество часов
-        const minutes = Math.floor((remainingTime % 3600) / 60); // вычисляем количество минут
-        const seconds = remainingTime % 60; // вычисляем количество секунд
-        let timeToString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; // выводим оставшееся время в формате hh:mm:ss
-        remainingTime--; // уменьшаем оставшееся время на 1 секунду
-        if(counter>=2){
-          setTimer(timeToString)
-        }
-        if (remainingTime < 0) {
-          clearInterval(timer); // останавливаем таймер, если оставшееся время меньше нуля
-        }
-      }, 1000);
-
-      // максимальное время блокировки в секундах
-
-
-      // const expireTime = new Date(+cookies.cookiesDate)//.getTime() + maxAge * 1000;
-      // const intervalId = setInterval(() => {
-      //   const now = new Date(expireTime- Date.now());
-      //   if (now.getTime() <= 0) {
-      //     clearInterval(intervalId);
-      //     setCounter(0);
-      //     setCookies("counter", 0, {
-      //       path: "/",
-      //       maxAge: 60,
-      //     });
-      //   } else {
-      //     const hours = now.getUTCHours().toString().padStart(2, "0");
-      //     const minutes = now.getUTCMinutes().toString().padStart(2, "0");
-      //     const seconds = now.getUTCSeconds().toString().padStart(2, "0");
-      //     const timeString = `${hours}:${minutes}:${seconds}`;
-      //     setTimer(timeString);
-      //     console.log(timer)
-      //   }
-      // }, 1000);
     }
   }, [cookies.counter]);
 
   // Эффект для сохранения значения счетчика в cookie
   useEffect(() => {
-    // document.cookie = `counter=${counter}; time=${time}; max-age=${60}; path=/`;
-    setCookies("counter", counter, {
-      path: "/",
-      maxAge: 60,
-    });
-    setCookies("cookiesDate", Date.now(), {
-      path: "/",
-      maxAge: 60,
-    });
+    document.cookie = `counter=${counter}; max-age=${60}; path=/`;
   }, [counter]);
-
+  
   // Функция для инкрементирования счетчика
   function incrementCounter() {
     setCounter((prevCount) => prevCount + 1);
@@ -108,8 +62,7 @@ export default function Home() {
       formData.append("image", new_file);
 
       try {
-        const response = await fetch("http://localhost/imgconverter/GCV.php", {
-          // imgtextreader
+        const response = await fetch("http://localhost/imgtextreader/GCV.php", {
           //imgconverter
           method: "POST",
           body: formData,
@@ -118,6 +71,7 @@ export default function Home() {
         getContentItem({ id: Date.now(), text: text });
         setFileList([]);
         incrementCounter();
+        
       } catch (error) {
         console.error(error);
       }
@@ -134,7 +88,7 @@ export default function Home() {
   }
   return (
     <>
-      <Header handleUpload={handleUpload} display={counter<2?counter:timer} />
+      <Header handleUpload={handleUpload} counter={counter} />
       <div className="content">
         <ImgLoader fileList={fileList} setFileList={setFileList} />
         <ResultList contentItem={contentItem} />
