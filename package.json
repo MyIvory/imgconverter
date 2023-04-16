@@ -6,14 +6,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "i18n:extract": "next-i18next extract",
+    "i18n:serve": "next-i18next serve"
   },
   "dependencies": {
     "@tinymce/tinymce-react": "^4.3.0",
     "antd": "^5.4.0",
     "draft-js": "^0.11.7",
+    "i18n": "^0.15.1",
+    "i18next": "^22.4.14",
+    "i18next-browser-languagedetector": "^7.0.1",
     "jquery": "^3.6.4",
     "next": "13.2.4",
+    "next-i18next": "^13.2.2",
+    "next-translate": "^2.0.5",
     "react": "18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "18.2.0",

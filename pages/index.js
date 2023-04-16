@@ -101,8 +101,9 @@ export default function Home() {
       formData.append("image", new_file);
 
       try {
-        const response = await fetch("http://localhost/imgtextreader/GCV.php", {
+        const response = await fetch("http://localhost/imgconverter/GCV.php", {
           //imgconverter
+          //imgtextreader
           method: "POST",
           body: formData,
         });
