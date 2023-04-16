@@ -18,7 +18,7 @@ const ResultList = (props) => {
 
   useMemo(() => {
     let el = props.contentItem;
-    console.log(el);
+  
     setElements((prevElements) => {
       if (props.contentItem !== null) {
         return [...prevElements, el];

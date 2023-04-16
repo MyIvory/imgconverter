@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Header from "@/components/header";
 import { Button, Modal, Upload, message } from "antd";
 import { useCookies } from "react-cookie";
+import { data } from "jquery";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,36 +17,74 @@ export default function Home() {
   const [fileList, setFileList] = useState([]);
   const [modal, contextHolder] = Modal.useModal();
   const [counter, setCounter] = useState(0);
-  const [cookies, setCookie] = useCookies(["counter"]);
+  const [cookies, setCookie,removeCookes] = useCookies(['counter', 'lastRequestTime']);
+  const [timer, setTimer] = useState("00:00:00")
+  const [lastRequestTime, setLastRequestTime] = useState(null);
 
-  // Эффект для получения значения счетчика из cookie
+  const maxCookiesAge = 60
   useEffect(() => {
     if (cookies.counter) {
       setCounter(parseInt(cookies.counter));
     }
   }, [cookies.counter]);
-
-  // Эффект для сохранения значения счетчика в cookie
-  useEffect(() => {
-    document.cookie = `counter=${counter}; max-age=${60}; path=/`;
-  }, [counter]);
   
-  // Функция для инкрементирования счетчика
+  useEffect(() => {
+    if (cookies.lastRequestTime) {
+      setLastRequestTime(parseInt(cookies.lastRequestTime));
+    }
+  }, [cookies.lastRequestTime]);
+
+  useEffect(() => {
+    document.cookie = `counter=${counter}; max-age=${maxCookiesAge}; path=/`;
+  }, [counter]);
+
+  useEffect(() => {
+    document.cookie = `lastRequestTime=${lastRequestTime}; max-age=${maxCookiesAge}; path=/`;
+  }, [lastRequestTime]);
+  console.log(Math.floor(maxCookiesAge-((Date.now()-lastRequestTime))/1000))
+
+  useEffect(() => {
+    if (counter >= 2) {
+      let i = Math.floor(maxCookiesAge-((Date.now()-lastRequestTime))/1000);    
+      let interval = setInterval(() => {
+        i--;
+        setTimer(formatTime(Math.floor(maxCookiesAge -((Date.now()-lastRequestTime))/1000)))
+        if (i <= 0) {
+          console.log("done");
+          document.cookie = "counter=; max-age=0; path=/";
+          clearInterval(interval);
+          setCounter(0);
+          setLastRequestTime(null)
+        }
+      }, 1000);
+    }
+  }, [counter]);
+
   function incrementCounter() {
     setCounter((prevCount) => prevCount + 1);
   }
-  // Функция для обработки загрузки файлов
+
+  function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+  
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  }
+  
   const handleUpload = async () => {
     console.log("click");
     if (fileList.length > 0) {
       // Проверка лимита на количество запросов
       if (counter >= 2) {
+        console.log(lastRequestTime);
         modal.error({
           title: "Error",
           content: "You have reached the limit of 10 text reads per day.",
         });
         return;
       }
+      
       // Проверка типа загруженного файла
       const file = fileList[0];
       if (!file.originFileObj.type.startsWith("image/")) {
@@ -71,7 +110,7 @@ export default function Home() {
         getContentItem({ id: Date.now(), text: text });
         setFileList([]);
         incrementCounter();
-        
+        setLastRequestTime(Date.now())
       } catch (error) {
         console.error(error);
       }
@@ -88,7 +127,7 @@ export default function Home() {
   }
   return (
     <>
-      <Header handleUpload={handleUpload} counter={counter} />
+      <Header handleUpload={handleUpload} display={counter<2?counter:timer} />
       <div className="content">
         <ImgLoader fileList={fileList} setFileList={setFileList} />
         <ResultList contentItem={contentItem} />

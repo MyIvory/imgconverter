@@ -4,7 +4,7 @@
     width: 100%;
     height: 50px;
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 200px 1fr 200px;
     grid-template-areas: "u t l";
     font-weight: 400;
     font-size: 24px;
@@ -19,7 +19,9 @@
     grid-area: u;
 
 }
-
+.counter{
+    font-size: 36px;
+}
 .tools {
     grid-area: t;
     display: grid;
@@ -40,29 +42,24 @@
     width: 100px;
     text-align: center;
     transition: all 500ms;
+    background-color: white;
+    color: black;
 }
 
 .read_button:hover,
 .save_button:hover {
-    /* Стили при наведении */
     cursor: pointer;
-    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 1), inset 0 0 20px 12px rgba(255, 255, 255, 1);
-    color: black;
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 1);
     transition: all 500ms;
 }
 
-.read_button:not(:hover),
-.save_button:not(:hover) {
-    /* Стили без наведения */
-    transition: all 500ms reverse;
-}
 
 
 .local {
     grid-area: l;
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 30px 30px;
     margin: auto 20px;
     column-gap: 15px;
 }
@@ -70,10 +67,12 @@
 
 
 @media (max-width:600px) {
-    .main{
+    .main {
         font-size: 18px;
+        grid-template-columns: 1fr 1fr 1fr;
     }
-    .tools{
+
+    .tools {
         grid-area: t;
         display: grid;
         grid-template-rows: 1fr;
@@ -81,6 +80,22 @@
         column-gap: 20px;
         align-items: center;
         justify-content: center;
-    
+
+    }
+
+    .read_button,
+    .save_button {
+        width: auto;
+        padding: 0 5px;
+    }
+    .local {
+        grid-area: l;
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 30px 30px;
+       
+    }
+    .counter{
+        font-size: 16px;
     }
 }

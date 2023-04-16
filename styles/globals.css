@@ -57,13 +57,12 @@ body {
 
     50% {
         box-shadow: 0 0 20px 5px rgba(255, 255, 255, 1), inset 0 0 20px 12px rgba(255, 255, 255, 1);
-        color: black;
-        font-weight: 600;
+        
     }
 
     100% {
         box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1), inset 0 0 0 0 rgba(255, 255, 255, 0.1);
-        color: white;
+        
     }
 }
 
