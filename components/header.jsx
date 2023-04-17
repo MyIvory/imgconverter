@@ -1,56 +1,62 @@
-// import s from "../styles/headerModule/headerModule.module.css"
-
-// const Header =(props)=>{
-
-//     console.log(t)
-// return (
-//     <div className={s.main}>
-//         <div className={s.user}><span>{t("user")}</span> </div>
-//         <div className={s.tools}>
-//             <div className={s.read_button} id="read_button" onClick={props.handleUpload}>Read</div>
-//             <div className={s.counter}>{props.display}</div>
-//             <div className={s.save_button}>Save</div>
-//         </div>
-//         <div className={s.local}>
-//             <div>EN</div>
-//             <div>UA</div>
-//         </div>
-//     </div>
-// )
-// }
-// export default Header;
-import Link from "next/link";
 import s from "../styles/headerModule/headerModule.module.css";
+import { withTranslation } from "next-i18next";
+//import i18n from '../i18n'
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
-const Header = (props) => {
+const Header = ({ t, handleUpload, display, i18n }) => {
+  const [isMounted, setIsMounted] = useState(false);
+  const [language, setLanguage] = useState("en");
+  const router = useRouter();
+
+  const handleLanguageChange = (lang) => {
+    setLanguage(lang);
+    router.push({
+      pathname: router.pathname,
+      query: { lang },
+      locale:lang
+    });
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <div className={s.main}>
-      <div className={s.user}>
-        <span>user</span>
-      </div>
+      <div className={s.user}>{isMounted ? t("user") : ""} </div>
       <div className={s.tools}>
-        <div
-          className={s.read_button}
-          id="read_button"
-          onClick={props.handleUpload}
-        >
+        <div className={s.read_button} id="read_button" onClick={handleUpload}>
           Read
         </div>
-        <div className={s.counter}>{props.display}</div>
+        <div className={s.counter}>{display}</div>
         <div className={s.save_button}>Save</div>
       </div>
+
       <div className={s.local}>
-        <div>
-          <Link href="/" locale="en" legacyBehavior>
-            <a className={s.locale}>English</a>
-          </Link>
-          <Link href="/" locale="uk" legacyBehavior>
-            <a className={s.locale}>Japanese</a>
-          </Link>
-        </div>
+        <Link href="/"  locale="en" >
+          <div
+            onClick={() => handleLanguageChange("en")}
+            className={language === "en" ? s.selectedLanguage : ""}
+          >
+            EN
+          </div>
+        </Link>
+        <Link href="/uk"  locale="uk   " >
+          <div
+            onClick={() => handleLanguageChange("uk")}
+            className={language === "uk" ? s.selectedLanguage : ""}
+          >
+            UK
+          </div>
+        </Link>
       </div>
     </div>
   );
 };
-export default Header;
+Header.getInitialProps = async () => ({
+  namespacesRequired: [],
+});
+export default withTranslation()(Header);

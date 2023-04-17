@@ -41,7 +41,7 @@ export default function Home() {
   useEffect(() => {
     document.cookie = `lastRequestTime=${lastRequestTime}; max-age=${maxCookiesAge}; path=/`;
   }, [lastRequestTime]);
-  console.log(Math.floor(maxCookiesAge-((Date.now()-lastRequestTime))/1000))
+ // console.log(Math.floor(maxCookiesAge-((Date.now()-lastRequestTime))/1000))
 
   useEffect(() => {
     if (counter >= 2) {
@@ -101,7 +101,7 @@ export default function Home() {
       formData.append("image", new_file);
 
       try {
-        const response = await fetch("http://localhost/imgconverter/GCV.php", {
+        const response = await fetch("http://localhost/imgtextreader/GCV.php", {
           //imgconverter
           //imgtextreader
           method: "POST",
