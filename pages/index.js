@@ -1,14 +1,12 @@
-import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
 import ImgLoader from "@/components/imgLoader";
 import ResultList from "@/components/resultList";
 import { useEffect, useState } from "react";
 import Header from "@/components/header";
 import { Button, Modal, Upload, message } from "antd";
 import { useCookies } from "react-cookie";
-import { data } from "jquery";
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 

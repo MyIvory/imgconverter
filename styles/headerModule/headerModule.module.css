@@ -14,14 +14,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 20px;
-
+    margin: 10px 0 10px 30px;
     grid-area: u;
+    border-radius: 5px;
+    width: auto;
+    text-align: center;
+    transition: all 500ms;
+    background-color: white;
+    color: black;
 
 }
-.counter{
+
+.counter {
     font-size: 36px;
 }
+
 .tools {
     grid-area: t;
     display: grid;
@@ -47,24 +54,45 @@
 }
 
 .read_button:hover,
-.save_button:hover {
+.save_button:hover,
+.user:hover,
+.selectedLanguage:hover,
+.unSelectedLanguage:hover {
     cursor: pointer;
     box-shadow: 0 0 20px 5px rgba(255, 255, 255, 1);
     transition: all 500ms;
+
 }
-
-
 
 .local {
     grid-area: l;
     display: grid;
+    justify-content: center;
     grid-template-rows: 1fr;
     grid-template-columns: 30px 30px;
     margin: auto 20px;
-    column-gap: 15px;
+    column-gap: 20px;
 }
 
+.selectedLanguage {
+    background-color: white;
+    color: black;
+}
 
+.selectedLanguage,
+.unSelectedLanguage {
+    transition: all 500ms;
+    cursor: pointer;
+    width: 40px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.unSelectedLanguage:hover {
+
+    background-color: white;
+    color: black;
+}
 
 @media (max-width:600px) {
     .main {
@@ -88,14 +116,16 @@
         width: auto;
         padding: 0 5px;
     }
+
     .local {
         grid-area: l;
         display: grid;
         grid-template-rows: 1fr;
         grid-template-columns: 30px 30px;
-       
+
     }
-    .counter{
+
+    .counter {
         font-size: 16px;
     }
 }
