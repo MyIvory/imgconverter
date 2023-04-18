@@ -109,7 +109,7 @@ const Home = ({ t }) => {
       formData.append("image", new_file);
 
       try {
-        const response = await fetch("http://www.easytext.gidguns.info/php/test.php", {
+        const response = await fetch("https://www.easytext.gidguns.info/php/test.php", {
           //imgconverter
           //imgtextreader
           method: "POST",
