@@ -3,6 +3,7 @@ import { Button, Modal, Upload, message } from 'antd';
 import { useState, useEffect } from 'react';
 import { AiOutlineCloudDownload } from 'react-icons/ai';
 import s from "../styles/imgLoaderModule/imgLoaderModule.module.css"
+import { withTranslation } from 'next-i18next'
 
 const getBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -11,13 +12,17 @@ const getBase64 = (file) =>
         reader.onload = () => resolve(reader.result);
         reader.onerror = (error) => reject(error);
     });
-const ImgLoader = (props) => {
+const ImgLoader = ({t,...props}) => {
+    const [isMounted, setIsMounted] = useState(false);
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
     // const [fileList, setFileList] = useState([]);
     const [dragging, setDragging] = useState(false)
     // const [modal, contextHolder] = Modal.useModal()
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     useEffect(() => {
         const handlePaste = (event) => {
@@ -81,9 +86,12 @@ const ImgLoader = (props) => {
             <div
                 style={{
                     marginTop: 8,
+                    paddingLeft:20,
+                    paddingRight:20
                 }}
             >
-                Добавьте изображение в этот блок, перетащив или кликнув для выбора.
+                {isMounted ? t('description'): ''}
+               
             </div>
         </div>
     );
@@ -109,4 +117,4 @@ const ImgLoader = (props) => {
         </>
     );
 };
-export default ImgLoader;
+export default withTranslation('imgloader')(ImgLoader);

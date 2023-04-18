@@ -1,3 +1,5 @@
 {
-    "user":"USER"
+    "profile":"Profile",
+    "ocr": "Recognize",
+    "save":"Save Texts"
 }

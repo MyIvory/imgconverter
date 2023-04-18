@@ -47,7 +47,9 @@ const ResultList = (props) => {
     try {
       const response = await $.ajax({
         type: "POST",
-        url: "http://localhost/imgconverter/save_session.php",// imgtextreader
+        url: "http://localhost/imgconverter/save_session.php",
+        // imgtextreader
+       // imgconverter
         data: { data: session_data },
       });
 

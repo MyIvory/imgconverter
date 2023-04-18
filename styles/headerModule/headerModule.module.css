@@ -7,14 +7,14 @@
     grid-template-columns: 200px 1fr 200px;
     grid-template-areas: "u t l";
     font-weight: 400;
-    font-size: 24px;
+    font-size: 22px;
 }
 
 .user {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 0 10px 30px;
+    margin: 10px 0 10px 40px;
     grid-area: u;
     border-radius: 5px;
     width: auto;
@@ -33,7 +33,7 @@
     grid-area: t;
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 200px 200px 200px;
+    grid-template-columns: auto 200px auto;
     align-items: center;
     justify-content: center;
 
@@ -46,11 +46,12 @@
 .read_button,
 .save_button {
     border-radius: 5px;
-    width: 100px;
+    width: auto;
     text-align: center;
     transition: all 500ms;
     background-color: white;
     color: black;
+    padding: 0 10px 0 10px;
 }
 
 .read_button:hover,

@@ -28,9 +28,13 @@ i18n
     resources: {
           en: {
               header: require('./public/locales/en/header.json'),
+              imgloader:require('./public/locales/en/imgloader.json'),
+              home:require('./public/locales/en/home.json')
           },
           uk: {
               header: require('./public/locales/uk/header.json'),
+              imgloader:require('./public/locales/uk/imgloader.json'),
+              home:require('./public/locales/uk/home.json')
           },
         },
   });

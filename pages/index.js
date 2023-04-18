@@ -5,27 +5,34 @@ import { useEffect, useState } from "react";
 import Header from "@/components/header";
 import { Button, Modal, Upload, message } from "antd";
 import { useCookies } from "react-cookie";
-
-
+import { withTranslation } from "next-i18next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+const Home = ({ t }) => {
   const [contentItem, setContentItem] = useState(null);
   const [fileList, setFileList] = useState([]);
   const [modal, contextHolder] = Modal.useModal();
   const [counter, setCounter] = useState(0);
-  const [cookies, setCookie,removeCookes] = useCookies(['counter', 'lastRequestTime']);
-  const [timer, setTimer] = useState("00:00:00")
+  const [cookies, setCookie, removeCookes] = useCookies([
+    "counter",
+    "lastRequestTime",
+  ]);
+  const [timer, setTimer] = useState("00:00:00");
   const [lastRequestTime, setLastRequestTime] = useState(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const maxCookiesAge = 60;
 
-  const maxCookiesAge = 60
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   useEffect(() => {
     if (cookies.counter) {
       setCounter(parseInt(cookies.counter));
     }
   }, [cookies.counter]);
-  
+
   useEffect(() => {
     if (cookies.lastRequestTime) {
       setLastRequestTime(parseInt(cookies.lastRequestTime));
@@ -39,20 +46,23 @@ export default function Home() {
   useEffect(() => {
     document.cookie = `lastRequestTime=${lastRequestTime}; max-age=${maxCookiesAge}; path=/`;
   }, [lastRequestTime]);
- // console.log(Math.floor(maxCookiesAge-((Date.now()-lastRequestTime))/1000))
+  // console.log(Math.floor(maxCookiesAge-((Date.now()-lastRequestTime))/1000))
 
   useEffect(() => {
     if (counter >= 2) {
-      let i = Math.floor(maxCookiesAge-((Date.now()-lastRequestTime))/1000);    
+      let i = Math.floor(maxCookiesAge - (Date.now() - lastRequestTime) / 1000);
       let interval = setInterval(() => {
         i--;
-        setTimer(formatTime(Math.floor(maxCookiesAge -((Date.now()-lastRequestTime))/1000)))
+        setTimer(
+          formatTime(
+            Math.floor(maxCookiesAge - (Date.now() - lastRequestTime) / 1000)
+          )
+        );
         if (i <= 0) {
-          console.log("done");
           document.cookie = "counter=; max-age=0; path=/";
           clearInterval(interval);
           setCounter(0);
-          setLastRequestTime(null)
+          setLastRequestTime(null);
         }
       }, 1000);
     }
@@ -66,29 +76,29 @@ export default function Home() {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
-  
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    return `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
   }
-  
+
   const handleUpload = async () => {
-    console.log("click");
     if (fileList.length > 0) {
       // Проверка лимита на количество запросов
       if (counter >= 2) {
         console.log(lastRequestTime);
         modal.error({
-          title: "Error",
-          content: "You have reached the limit of 10 text reads per day.",
+          title: isMounted ? t('error') : '',
+          content:  <span>{isMounted ? t('limiterr') : ''}</span>,
         });
         return;
       }
-      
+
       // Проверка типа загруженного файла
       const file = fileList[0];
       if (!file.originFileObj.type.startsWith("image/")) {
         modal.error({
-          title: "Error",
-          content: <span>Select image file</span>,
+          title:  isMounted ? t('error') : '',
+          content: <span>{isMounted ? t('notimage') : ''}</span>,
         });
         return;
       }
@@ -99,7 +109,7 @@ export default function Home() {
       formData.append("image", new_file);
 
       try {
-        const response = await fetch("http://localhost/imgtextreader/GCV.php", {
+        const response = await fetch("http://localhost/imgconverter/GCV.php", {
           //imgconverter
           //imgtextreader
           method: "POST",
@@ -109,14 +119,14 @@ export default function Home() {
         getContentItem({ id: Date.now(), text: text });
         setFileList([]);
         incrementCounter();
-        setLastRequestTime(Date.now())
+        setLastRequestTime(Date.now());
       } catch (error) {
         console.error(error);
       }
     } else {
       modal.error({
-        title: "Error",
-        content: <span>Select file</span>,
+        title: isMounted ? t('error') : '',
+        content: <span>{isMounted ? t('nofile') : ''}</span>,
       });
     }
   };
@@ -126,7 +136,10 @@ export default function Home() {
   }
   return (
     <>
-      <Header handleUpload={handleUpload} display={counter<2?counter:timer} />
+      <Header
+        handleUpload={handleUpload}
+        display={counter < 2 ? counter : timer}
+      />
       <div className="content">
         <ImgLoader fileList={fileList} setFileList={setFileList} />
         <ResultList contentItem={contentItem} />
@@ -135,4 +148,6 @@ export default function Home() {
       {contextHolder}
     </>
   );
-}
+};
+
+export default withTranslation("home")(Home)

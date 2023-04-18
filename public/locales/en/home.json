@@ -1,0 +1,6 @@
+{
+    "error":"Error",
+    "nofile":"Choose an image",
+    "notimage":"The selected file is not an image. Please choose another file or insert a screenshot.",
+    "limiterr":"The number of free readings has been exhausted (10). The next ones will be available in 24 hours. Subscribe to Premium to get unlimited access to text reading."
+}
