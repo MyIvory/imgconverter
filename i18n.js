@@ -29,36 +29,16 @@ i18n
           en: {
               header: require('./public/locales/en/header.json'),
               imgloader:require('./public/locales/en/imgloader.json'),
-              home:require('./public/locales/en/home.json')
+              home:require('./public/locales/en/home.json'),
+              resultlist:require('./public/locales/en/resultlist.json')
           },
           uk: {
               header: require('./public/locales/uk/header.json'),
               imgloader:require('./public/locales/uk/imgloader.json'),
-              home:require('./public/locales/uk/home.json')
+              home:require('./public/locales/uk/home.json'),
+              resultlist:require('./public/locales/uk/resultlist.json')
           },
         },
   });
 
 export default i18n;
-// import i18n from 'i18next';
-// import { initReactI18next } from 'react-i18next';
-// import { NextI18NextInstance } from 'next-i18next';
-// import Backend from 'i18next-http-backend';
-
-// i18n.use(initReactI18next).init({
-//   resources: {
-//     en: {
-//         header: require('./public/locales/en/header.json'),
-//     },
-//     uk: {
-//         header: require('./public/locales/uk/header.json'),
-//     },
-//   },
-//   fallbackLng: 'uk',
-//   debug: true,
-//   interpolation: {
-//     escapeValue: false,
-//   },
-// });
-
-// export default i18n;

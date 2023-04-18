@@ -109,7 +109,7 @@ const Home = ({ t }) => {
       formData.append("image", new_file);
 
       try {
-        const response = await fetch("http://localhost/imgconverter/GCV.php", {
+        const response = await fetch("http://localhost/imgtextreader/GCV.php", {
           //imgconverter
           //imgtextreader
           method: "POST",
@@ -139,10 +139,12 @@ const Home = ({ t }) => {
       <Header
         handleUpload={handleUpload}
         display={counter < 2 ? counter : timer}
+        isTimer = {counter < 2 ? false : true}
+        isMounted={isMounted}
       />
       <div className="content">
-        <ImgLoader fileList={fileList} setFileList={setFileList} />
-        <ResultList contentItem={contentItem} />
+        <ImgLoader fileList={fileList} setFileList={setFileList} isMounted={isMounted}/>
+        <ResultList contentItem={contentItem} isMounted={isMounted} />
       </div>
 
       {contextHolder}

@@ -3,12 +3,11 @@ import s from "../styles/resultListModule/resultListModule.module.css";
 import { Button, Input, Modal, Tooltip, message } from "antd";
 import $ from "jquery";
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineCopy } from "react-icons/ai";
-// import { Editor, EditorState, convertFromRaw } from "draft-js";
 import { Editor } from "@tinymce/tinymce-react";
+import { withTranslation } from 'next-i18next'
 
 
-
-const ResultList = (props) => {
+const ResultList = ({t,...props}) => {
   const [elements, setElements] = useState([]);
   const containerRef = useRef(null);
   const [modal, contextHolder] = Modal.useModal();
@@ -144,7 +143,7 @@ const ResultList = (props) => {
 
                 </div>
                 <div className={s.tools}>
-                  <Tooltip title="Edit">
+                  <Tooltip title={props.isMounted ? t('tooltips.edit') : ''}>
                     <AiOutlineEdit
                       className={s.icons}
                       style={{
@@ -156,12 +155,12 @@ const ResultList = (props) => {
                       onClick={() => editItem(item)}
                     />
                   </Tooltip>
-                  <Tooltip title="Copy">
+                  <Tooltip title={props.isMounted ? t('tooltips.copy') : ''}>
                     <AiOutlineCopy className={s.icons} onClick={() => {
                       copyItem(item.id)
                     }} />
                   </Tooltip>
-                  <Tooltip title="Delete">
+                  <Tooltip title={props.isMounted ? t('tooltips.del') : ''}>
                     <AiOutlineDelete
                       className={s.icons}
                       style={{
@@ -188,6 +187,6 @@ const ResultList = (props) => {
     </>
   );
 };
-export default ResultList;
+export default withTranslation('resultlist')(ResultList);
 
 

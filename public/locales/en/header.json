@@ -1,5 +1,12 @@
 {
     "profile":"Profile",
     "ocr": "Recognize",
-    "save":"Save Texts"
+    "save":"Save Texts",
+    "tooltips":{
+        "profile":"We will soon add the registration feature.",
+        "ocr":"Click to recognize text in the image.",
+        "save":"You can save recognized texts in your profile after registration.",
+        "counter":"Number of recognitions  performed.",
+        "timer":"The limit of recognitions has been reached. The next reading opportunity will be available in some time."
+    }
 }

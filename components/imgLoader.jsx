@@ -13,17 +13,13 @@ const getBase64 = (file) =>
         reader.onerror = (error) => reject(error);
     });
 const ImgLoader = ({t,...props}) => {
-    const [isMounted, setIsMounted] = useState(false);
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
     // const [fileList, setFileList] = useState([]);
     const [dragging, setDragging] = useState(false)
     // const [modal, contextHolder] = Modal.useModal()
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
+ 
     useEffect(() => {
         const handlePaste = (event) => {
             if (event.clipboardData && event.clipboardData.files && event.clipboardData.files.length) {
@@ -90,7 +86,7 @@ const ImgLoader = ({t,...props}) => {
                     paddingRight:20
                 }}
             >
-                {isMounted ? t('description'): ''}
+                {props.isMounted ? t('description'): ''}
                
             </div>
         </div>
