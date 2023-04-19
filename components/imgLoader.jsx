@@ -19,10 +19,10 @@ const ImgLoader = ({t,...props}) => {
     // const [fileList, setFileList] = useState([]);
     const [dragging, setDragging] = useState(false)
     // const [modal, contextHolder] = Modal.useModal()
- 
+    
     useEffect(() => {
-        try{
         const handlePaste = (event) => {
+          
             if (event.clipboardData && event.clipboardData.files && event.clipboardData.files.length) {
                 const file = event.clipboardData.files[0];
                 const reader = new FileReader();
@@ -45,9 +45,6 @@ const ImgLoader = ({t,...props}) => {
         return () => {
             document.removeEventListener('paste', handlePaste);
         };
-    }catch(er){
-        console.log(new Error("I got it"+ er))
-    }
     }, []);
     //анимация кнопки
     function addGlowAnimation(element, duration) {
@@ -64,7 +61,7 @@ const ImgLoader = ({t,...props}) => {
     }
     const handleCancel = () => setPreviewOpen(false);
     const handlePreview = async (file) => {
-
+       
         if (!file.url && !file.preview) {
             file.preview = await getBase64(file.originFileObj);
         }
@@ -74,10 +71,16 @@ const ImgLoader = ({t,...props}) => {
 
     };
     let timerId;
-    const handleChange = ({ fileList: newFileList }) => {   
-        props.setFileList(newFileList);
-        clearTimeout(timerId);
-        timerId = setTimeout(() => { addGlowAnimation(document.getElementById("read_button"), 1000); }, 500)
+    const handleChange = ({ fileList: newFileList }) => {  
+        try{
+            console.log("!!!!!!!!!!!!!!") 
+            props.setFileList(newFileList);
+            clearTimeout(timerId);
+            timerId = setTimeout(() => { addGlowAnimation(document.getElementById("read_button"), 1000); }, 500)
+        }catch(error){
+            console.log(error)
+        }
+       
     }
 
     const uploadButton = (
