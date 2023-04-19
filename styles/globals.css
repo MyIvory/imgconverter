@@ -42,7 +42,9 @@ body {
     height: 300px !important;
     margin: 0 !important;
 }
-
+.ant-upload-list-item-error{
+    border-color: white;
+}
 
 .glow-animation {
     animation-name: glow;

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { AiOutlineCloudDownload } from 'react-icons/ai';
 import s from "../styles/imgLoaderModule/imgLoaderModule.module.css"
 import { withTranslation } from 'next-i18next'
+import { error } from 'jquery';
 
 const getBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -72,11 +73,17 @@ const ImgLoader = ({t,...props}) => {
     };
     let timerId;
     const handleChange = ({ fileList: newFileList }) => {  
-  
-            props.setFileList(newFileList);
+        try{
+            console.log("!!!!!!!!!!!!!!") 
+            
+           // props.setFileList(newFileList);
             clearTimeout(timerId);
             timerId = setTimeout(() => { addGlowAnimation(document.getElementById("read_button"), 1000); }, 500)
-   
+            throw(error)
+        }catch(error){
+            console.log(error)
+        }
+       
     }
 
     const uploadButton = (
@@ -101,7 +108,7 @@ const ImgLoader = ({t,...props}) => {
      onDragLeave={() => setDragging(false)}>
                 <div className={s.uploadInnerBlock}>
                     <Upload listType="picture-card" fileList={props.fileList} onPreview={handlePreview} onChange={handleChange}>
-                        {props.fileList.length >= 1 ? "" : uploadButton}
+                        {props.fileList.length >= 1 ? null : uploadButton}
                     </Upload>
 
                 </div>
