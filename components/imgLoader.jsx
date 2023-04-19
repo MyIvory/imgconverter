@@ -13,6 +13,11 @@ const getBase64 = (file) =>
         reader.onload = () => resolve(reader.result);
         reader.onerror = (error) => reject(error);
     });
+    const dummyRequest = ({ file, onSuccess }) => {
+        setTimeout(() => {
+          onSuccess("ok");
+        }, 0);
+      };
 const ImgLoader = ({t,...props}) => {
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
@@ -105,7 +110,7 @@ const ImgLoader = ({t,...props}) => {
      onDragEnter={() => setDragging(true)} 
      onDragLeave={() => setDragging(false)}>
                 <div className={s.uploadInnerBlock}>
-                    <Upload listType="picture-card" fileList={props.fileList} onPreview={handlePreview} onChange={handleChange}>
+                    <Upload listType="picture-card" fileList={props.fileList} onPreview={handlePreview} onChange={handleChange} customRequest={dummyRequest}>
                         {props.fileList.length >= 1 ? null : uploadButton}
                     </Upload>
 
