@@ -43,7 +43,7 @@ body {
     margin: 0 !important;
 }
 .ant-upload-list-item-error{
-    border-color: white;
+    border-color: white !important;
 }
 
 .glow-animation {
