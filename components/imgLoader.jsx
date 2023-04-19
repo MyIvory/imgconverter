@@ -21,6 +21,7 @@ const ImgLoader = ({t,...props}) => {
     // const [modal, contextHolder] = Modal.useModal()
  
     useEffect(() => {
+        try{
         const handlePaste = (event) => {
             if (event.clipboardData && event.clipboardData.files && event.clipboardData.files.length) {
                 const file = event.clipboardData.files[0];
@@ -44,6 +45,9 @@ const ImgLoader = ({t,...props}) => {
         return () => {
             document.removeEventListener('paste', handlePaste);
         };
+    }catch(er){
+        console.log(new Error("I got it"+ er))
+    }
     }, []);
     //анимация кнопки
     function addGlowAnimation(element, duration) {
@@ -60,6 +64,7 @@ const ImgLoader = ({t,...props}) => {
     }
     const handleCancel = () => setPreviewOpen(false);
     const handlePreview = async (file) => {
+
         if (!file.url && !file.preview) {
             file.preview = await getBase64(file.originFileObj);
         }

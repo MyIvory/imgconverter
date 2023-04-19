@@ -115,7 +115,7 @@ const Home = ({ t }) => {
             //http://localhost/imgtextreader/GCV.php
             //imgconverter
             //imgtextreader
-            method: "GET",
+            method: "POST",
             body: formData,
           }
         );
