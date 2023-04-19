@@ -74,12 +74,10 @@ const ImgLoader = ({t,...props}) => {
     let timerId;
     const handleChange = ({ fileList: newFileList }) => {  
         try{
-            console.log("!!!!!!!!!!!!!!") 
-            
-           // props.setFileList(newFileList);
+            props.setFileList(newFileList);
             clearTimeout(timerId);
             timerId = setTimeout(() => { addGlowAnimation(document.getElementById("read_button"), 1000); }, 500)
-            throw(error)
+    
         }catch(error){
             console.log(error)
         }
