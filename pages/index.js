@@ -8,7 +8,6 @@ import { useCookies } from "react-cookie";
 import { withTranslation } from "next-i18next";
 
 const inter = Inter({ subsets: ["latin"] });
-
 const Home = ({ t }) => {
   const [contentItem, setContentItem] = useState(null);
   const [fileList, setFileList] = useState([]);
@@ -87,8 +86,8 @@ const Home = ({ t }) => {
       if (counter >= 2) {
         console.log(lastRequestTime);
         modal.error({
-          title: isMounted ? t('error') : '',
-          content:  <span>{isMounted ? t('limiterr') : ''}</span>,
+          title: isMounted ? t("error") : "",
+          content: <span>{isMounted ? t("limiterr") : ""}</span>,
         });
         return;
       }
@@ -97,8 +96,8 @@ const Home = ({ t }) => {
       const file = fileList[0];
       if (!file.originFileObj.type.startsWith("image/")) {
         modal.error({
-          title:  isMounted ? t('error') : '',
-          content: <span>{isMounted ? t('notimage') : ''}</span>,
+          title: isMounted ? t("error") : "",
+          content: <span>{isMounted ? t("notimage") : ""}</span>,
         });
         return;
       }
@@ -109,14 +108,17 @@ const Home = ({ t }) => {
       formData.append("image", new_file);
 
       try {
-        const response = await fetch("https://www.easytext.gidguns.info/GCV.php", {
-          //https://www.easytext.gidguns.info/php/GCV.php
-          //http://localhost/imgtextreader/GCV.php
-          //imgconverter
-          //imgtextreader
-          method: "POST",
-          body: formData,
-        });
+        const response = await fetch(
+          "https://www.easytext.gidguns.info/GCV.php",
+          {
+            //https://www.easytext.gidguns.info/php/GCV.php
+            //http://localhost/imgtextreader/GCV.php
+            //imgconverter
+            //imgtextreader
+            method: "GET",
+            body: formData,
+          }
+        );
         const text = await response.text();
         getContentItem({ id: Date.now(), text: text });
         setFileList([]);
@@ -127,8 +129,8 @@ const Home = ({ t }) => {
       }
     } else {
       modal.error({
-        title: isMounted ? t('error') : '',
-        content: <span>{isMounted ? t('nofile') : ''}</span>,
+        title: isMounted ? t("error") : "",
+        content: <span>{isMounted ? t("nofile") : ""}</span>,
       });
     }
   };
@@ -141,11 +143,15 @@ const Home = ({ t }) => {
       <Header
         handleUpload={handleUpload}
         display={counter < 2 ? counter : timer}
-        isTimer = {counter < 2 ? false : true}
+        isTimer={counter < 2 ? false : true}
         isMounted={isMounted}
       />
       <div className="content">
-        <ImgLoader fileList={fileList} setFileList={setFileList} isMounted={isMounted}/>
+        <ImgLoader
+          fileList={fileList}
+          setFileList={setFileList}
+          isMounted={isMounted}
+        />
         <ResultList contentItem={contentItem} isMounted={isMounted} />
       </div>
 
@@ -154,4 +160,4 @@ const Home = ({ t }) => {
   );
 };
 
-export default withTranslation("home")(Home)
+export default withTranslation("home")(Home);
