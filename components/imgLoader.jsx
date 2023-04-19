@@ -72,15 +72,11 @@ const ImgLoader = ({t,...props}) => {
     };
     let timerId;
     const handleChange = ({ fileList: newFileList }) => {  
-        try{
-            console.log("!!!!!!!!!!!!!!") 
+  
             props.setFileList(newFileList);
             clearTimeout(timerId);
             timerId = setTimeout(() => { addGlowAnimation(document.getElementById("read_button"), 1000); }, 500)
-        }catch(error){
-            console.log(error)
-        }
-       
+   
     }
 
     const uploadButton = (
@@ -105,7 +101,7 @@ const ImgLoader = ({t,...props}) => {
      onDragLeave={() => setDragging(false)}>
                 <div className={s.uploadInnerBlock}>
                     <Upload listType="picture-card" fileList={props.fileList} onPreview={handlePreview} onChange={handleChange}>
-                        {props.fileList.length >= 1 ? null : uploadButton}
+                        {props.fileList.length >= 1 ? "" : uploadButton}
                     </Upload>
 
                 </div>
