@@ -42,15 +42,7 @@ body {
     height: 300px !important;
     margin: 0 !important;
 }
-.ant-upload-list-item-error{
-    border-color: white !important;
-}
-/* .ant-upload-list-item-container ant-tooltip,
-.ant-upload-list-item-container ant-tooltip-hidden,
-.ant-upload-list-item-container css-htwhyh,
-.ant-upload-list-item-container ant-tooltip-placement-top{
- display: none !important;
-} */
+
 .glow-animation {
     animation-name: glow;
     animation-duration: 1s;
