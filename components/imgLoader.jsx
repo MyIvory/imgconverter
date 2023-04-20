@@ -99,7 +99,7 @@ const ImgLoader = ({t,...props}) => {
                     paddingRight:20
                 }}
             >
-                {props.isMounted ? t('description'): ''}
+                {props.isMounted ? window.innerWidth>600?t('description'):t('description_mob'): ''}
                
             </div>
         </div>

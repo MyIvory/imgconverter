@@ -1,3 +1,4 @@
 {
-    "description":"Add a screenshot, drag and drop an image, or choose a file."
+    "description":"Add a screenshot, drag and drop an image, or choose a file.",
+    "description_mob":"Press to take a photo or choose a file."
 }
