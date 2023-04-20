@@ -20,6 +20,7 @@ const Home = ({ t }) => {
   const [timer, setTimer] = useState("00:00:00");
   const [lastRequestTime, setLastRequestTime] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const maxCookiesAge = 3600;
   const limit = 10
 
@@ -82,6 +83,7 @@ const Home = ({ t }) => {
   }
 
   const handleUpload = async () => {
+    setLoading(true)
     if (fileList.length > 0) {
       // Проверка лимита на количество запросов
       if (counter >= limit) {
@@ -123,6 +125,7 @@ const Home = ({ t }) => {
         setFileList([]);
         incrementCounter();
         setLastRequestTime(Date.now());
+        setLoading(false)
       } catch (error) {
         console.error(error);
       }
@@ -150,6 +153,7 @@ const Home = ({ t }) => {
           fileList={fileList}
           setFileList={setFileList}
           isMounted={isMounted}
+          loading={loading}
         />
         <ResultList contentItem={contentItem} isMounted={isMounted} />
       </div>
