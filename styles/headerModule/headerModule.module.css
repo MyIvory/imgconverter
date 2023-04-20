@@ -45,6 +45,10 @@
 
 .read_button,
 .save_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0 10px 40px;
     border-radius: 5px;
     width: auto;
     text-align: center;
@@ -65,12 +69,20 @@
 
 }
 
+#en_but {
+    grid-area: en;
+}
+
+#uk_but {
+    grid-area: uk;
+}
+
 .local {
     grid-area: l;
     display: grid;
     justify-content: center;
-    grid-template-rows: 1fr;
-    grid-template-columns: 30px 30px;
+    grid-template-areas:
+    "uk en";
     margin: auto 20px;
     column-gap: 20px;
 }
@@ -96,17 +108,34 @@
 }
 
 @media (max-width:600px) {
+    .user {
+        margin: 10px 0 0 10px;
+        height: 50px;
+        width: 125px;
+    }
     .main {
+        position: fixed;
         font-size: 18px;
         grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 63px 63px;
+        height: 130px;
+        grid-template-areas: 
+        "u . l"
+        "t t t";
     }
-
+    .read_button {
+        margin-left: 10px !important;
+    }
+ 
+    .save_button {
+        margin-right: 10px !important;
+    }
     .tools {
         grid-area: t;
         display: grid;
         grid-template-rows: 1fr;
-        grid-template-columns: auto auto auto;
-        column-gap: 20px;
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 5px;
         align-items: center;
         justify-content: center;
 
@@ -114,19 +143,16 @@
 
     .read_button,
     .save_button {
-        width: auto;
-        padding: 0 5px;
+        width: 105px;
+        height: 50px;
     }
-
-    .local {
+    .local {      
         grid-area: l;
-        display: grid;
-        grid-template-rows: 1fr;
-        grid-template-columns: 30px 30px;
-
+        column-gap: 10px;
+        margin-right: 0;
     }
 
     .counter {
-        font-size: 16px;
+        font-size:28px;
     }
 }

@@ -150,13 +150,16 @@ const ResultList = ({t,...props}) => {
                         position: "absolute",
                         top: "50%",
                         transform: "translateY(-50%)",
+                     
                         left: 5,
                       }}
                       onClick={() => editItem(item)}
                     />
                   </Tooltip>
                   <Tooltip title={props.isMounted ? t('tooltips.copy') : ''}>
-                    <AiOutlineCopy className={s.icons} onClick={() => {
+                    <AiOutlineCopy className={s.icons} 
+                
+                    onClick={() => {
                       copyItem(item.id)
                     }} />
                   </Tooltip>
@@ -179,9 +182,6 @@ const ResultList = ({t,...props}) => {
             );
           })}
       </div>
-      {/* <Button onClick={saveSession} className="saveButton">
-        Save
-      </Button> */}
       {contextHolder}
       {messageHolder}
     </>

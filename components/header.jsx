@@ -44,6 +44,7 @@ const Header = ({ t,i18n,...props}) => {
                 <div ref={enRef}
                     onClick={() => handleLanguageChange('en')}
                     className={language === 'en' ? s.selectedLanguage : s.unSelectedLanguage}
+                    id="en_but"
                 >
                     EN
                 </div>
@@ -51,6 +52,7 @@ const Header = ({ t,i18n,...props}) => {
                     ref={ukRef}
                     onClick={() => handleLanguageChange('uk')}
                     className={language === 'uk' ? s.selectedLanguage : s.unSelectedLanguage}
+                    id="uk_but"
                 >
                     UK
                 </div>
