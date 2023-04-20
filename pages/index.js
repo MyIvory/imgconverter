@@ -20,7 +20,8 @@ const Home = ({ t }) => {
   const [timer, setTimer] = useState("00:00:00");
   const [lastRequestTime, setLastRequestTime] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
-  const maxCookiesAge = 60;
+  const maxCookiesAge = 3600;
+  const limit = 10
 
   useEffect(() => {
     setIsMounted(true);
@@ -48,7 +49,7 @@ const Home = ({ t }) => {
   // console.log(Math.floor(maxCookiesAge-((Date.now()-lastRequestTime))/1000))
 
   useEffect(() => {
-    if (counter >= 2) {
+    if (counter >= limit) {
       let i = Math.floor(maxCookiesAge - (Date.now() - lastRequestTime) / 1000);
       let interval = setInterval(() => {
         i--;
@@ -83,8 +84,7 @@ const Home = ({ t }) => {
   const handleUpload = async () => {
     if (fileList.length > 0) {
       // Проверка лимита на количество запросов
-      if (counter >= 2) {
-        console.log(lastRequestTime);
+      if (counter >= limit) {
         modal.error({
           title: isMounted ? t("error") : "",
           content: <span>{isMounted ? t("limiterr") : ""}</span>,
@@ -111,7 +111,6 @@ const Home = ({ t }) => {
         const response = await fetch(
           "https://www.easytext.gidguns.info/GCV.php",
           {
-            //https://www.easytext.gidguns.info/php/GCV.php
             //http://localhost/imgtextreader/GCV.php
             //imgconverter
             //imgtextreader
@@ -142,8 +141,8 @@ const Home = ({ t }) => {
     <>
       <Header
         handleUpload={handleUpload}
-        display={counter < 2 ? counter : timer}
-        isTimer={counter < 2 ? false : true}
+        display={counter < limit ? counter : timer}
+        isTimer={counter < limit ? false : true}
         isMounted={isMounted}
       />
       <div className="content">

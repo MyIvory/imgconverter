@@ -10,14 +10,14 @@ export default function Document() {
           href="https://fonts.gstatic.com"
           crossOrigin="true"
         />
-        <link rel="alternate" hreflang="en" href="https://example.com/en" />
-        <link rel="alternate" hreflang="uk" href="https://example.com/" />
+        <link rel="alternate" hreflang="en" href="https://easytext.vercel.app/en" />
+        <link rel="alternate" hreflang="uk" href="https://easytext.vercel.app" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap"
           rel="stylesheet"
         />
-        <link rel="canonical" href="https://example.com/en" />
-        <link rel="canonical" href="https://example.com/" />
+        <link rel="canonical" href="https://easytext.vercel.app/en" />
+        <link rel="canonical" href="https://easytext.vercel.app" />
         <meta
           name="description"
           lang="en"
@@ -55,11 +55,11 @@ export default function Document() {
           property="og:description"
           content="EasyText is a powerful tool that lets you extract text from screenshots and images effortlessly. Whether you're a student, researcher, or just someone who needs to quickly convert an image into editable text, EasyText is the solution for you."
         />
-        <meta property="og:url" content="https://example.com/" />
-        <meta
+        <meta property="og:url" content="https://easytext.vercel.app" />
+       {/*  <meta
           property="og:image"
           content="https://example.com/images/easytext.png"
-        />
+        /> */}
         <meta property="og:image:alt" content="EasyText logo" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />

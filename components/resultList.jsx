@@ -138,8 +138,8 @@ const ResultList = ({t,...props}) => {
                   <span>{num}</span>
                 </div>
                 <div className={s.item_content}>
-                  <span>{item.text}</span>
-                  {/* <span id={item.id} dangerouslySetInnerHTML={{ __html: item.text }}></span> */}
+                 {/*  <span>{item.text}</span> */}
+                  <span id={item.id} dangerouslySetInnerHTML={{ __html: item.text }}></span>
 
                 </div>
                 <div className={s.tools}>
