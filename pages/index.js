@@ -91,6 +91,7 @@ const Home = ({ t }) => {
           title: isMounted ? t("error") : "",
           content: <span>{isMounted ? t("limiterr") : ""}</span>,
         });
+        setLoading(false)
         return;
       }
 
@@ -101,6 +102,7 @@ const Home = ({ t }) => {
           title: isMounted ? t("error") : "",
           content: <span>{isMounted ? t("notimage") : ""}</span>,
         });
+        setLoading(false)
         return;
       }
       // Отправка запроса на сервер для получения текста из изображения
