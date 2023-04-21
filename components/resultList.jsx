@@ -149,8 +149,7 @@ const ResultList = ({t,...props}) => {
                       style={{
                         position: "absolute",
                         top: "50%",
-                        transform: "translateY(-50%)",
-                     
+                        transform: "translateY(-50%)",                    
                         left: 5,
                       }}
                       onClick={() => editItem(item)}

@@ -21,15 +21,7 @@ body {
     background-color: inherit;
 
 }
-@keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .spin-animation {
-    animation: spin 1s linear infinite;
-  }
+
 
 .ant-upload {
     color: white;

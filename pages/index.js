@@ -130,9 +130,11 @@ const Home = ({ t }) => {
         console.error(error);
       }
     } else {
+      setLoading(false)
       modal.error({
         title: isMounted ? t("error") : "",
         content: <span>{isMounted ? t("nofile") : ""}</span>,
+        
       });
     }
   };
@@ -140,6 +142,7 @@ const Home = ({ t }) => {
   function getContentItem(item) {
     setContentItem(item);
   }
+
   return (
     <>
       <Header
@@ -155,7 +158,7 @@ const Home = ({ t }) => {
           isMounted={isMounted}
           loading={loading}
         />
-        <ResultList contentItem={contentItem} isMounted={isMounted} />
+        <ResultList contentItem={contentItem} isMounted={isMounted}  />
       </div>
 
       {contextHolder}

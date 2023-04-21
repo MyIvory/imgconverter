@@ -82,7 +82,7 @@
     display: grid;
     justify-content: center;
     grid-template-areas:
-    "uk en";
+        "uk en";
     margin: auto 20px;
     column-gap: 20px;
 }
@@ -102,7 +102,6 @@
 }
 
 .unSelectedLanguage:hover {
-
     background-color: white;
     color: black;
 }
@@ -113,23 +112,26 @@
         height: 50px;
         width: 125px;
     }
+
     .main {
         position: fixed;
         font-size: 18px;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 63px 63px;
         height: 130px;
-        grid-template-areas: 
-        "u . l"
-        "t t t";
+        grid-template-areas:
+            "u . l"
+            "t t t";
     }
+
     .read_button {
         margin-left: 10px !important;
     }
- 
+
     .save_button {
         margin-right: 10px !important;
     }
+
     .tools {
         grid-area: t;
         display: grid;
@@ -146,13 +148,22 @@
         width: 105px;
         height: 50px;
     }
-    .local {      
+
+    .local {
         grid-area: l;
         column-gap: 10px;
         margin-right: 0;
     }
 
     .counter {
-        font-size:28px;
+        font-size: 28px;
+    }
+
+    .read_button:hover,
+    .save_button:hover,
+    .user:hover,
+    .selectedLanguage:hover,
+    .unSelectedLanguage:hover {
+        box-shadow:none;
     }
 }

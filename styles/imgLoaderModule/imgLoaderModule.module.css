@@ -1,4 +1,5 @@
 .uploadBlock {
+    position: relative;
     margin-top: 20px;
     width: 500px;
     height: 170px;
@@ -28,7 +29,23 @@
     display: flex;
     align-items: center;
     position: relative;
+    
 }
+@keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .spinner { 
+    animation: spin 1s linear infinite;
+  }
+  .spinner_box{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+  }
 @media (max-width:600px) {
     .uploadBlock {
         width: 90%;

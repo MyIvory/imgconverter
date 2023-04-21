@@ -5,8 +5,6 @@ import { AiOutlineCloudDownload } from 'react-icons/ai';
 import s from "../styles/imgLoaderModule/imgLoaderModule.module.css"
 import { withTranslation } from 'next-i18next'
 import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
-import { BsHourglassBottom } from 'react-icons/bs';
 import { FaCog } from 'react-icons/fa';
 
 const getBase64 = (file) =>
@@ -52,19 +50,19 @@ const ImgLoader = ({ t, ...props }) => {
         };
 
         document.addEventListener('paste', handlePaste);
+        
 
         return () => {
             document.removeEventListener('paste', handlePaste);
         };
     }, []);
-    //анимация кнопки
     function addGlowAnimation(element, duration) {
         const animationClass = "glow-animation";
         const animationDuration = duration || 1000; // По умолчанию 1 секунда
-
+    
         // Добавляем класс для анимации
         element.classList.add(animationClass);
-
+    
         // Удаляем класс для анимации после окончания анимации
         setTimeout(() => {
             element.classList.remove(animationClass);
@@ -86,23 +84,17 @@ const ImgLoader = ({ t, ...props }) => {
         try {
             props.setFileList(newFileList);
             clearTimeout(timerId);
-            timerId = setTimeout(() => { addGlowAnimation(document.getElementById("read_button"), 1000); }, 500)
+            timerId = setTimeout(() => {addGlowAnimation(document.getElementById("read_button"), 1000); }, 500)
 
         } catch (error) {
             console.log(error)
         }
 
     }
-
+  
     const uploadButton = (
         <div>
-            {props.loading ? (
-                <Spin indicator={<FaCog className="spin-animation" style={{ color: 'white', fontSize: 40 }} spin />} />
-            ) : (
-                <AiOutlineCloudDownload style={{ fontSize: 80 }} />
-            )}
-            {/*  <AiOutlineCloudDownload style={{ fontSize: 80 }} /> */}
-            {/*   <Spin indicator={<FaCog className="spin-animation" style={{ color: 'white',fontSize:40 }} spin />} /> */}
+            <AiOutlineCloudDownload style={{ fontSize: 80 }} />
             <div
                 style={{
                     marginTop: 8,
@@ -126,10 +118,12 @@ const ImgLoader = ({ t, ...props }) => {
                     </Upload>
 
                 </div>
-                {/* <Button onClick={handleUpload} className='uploadButton'>Отправить</Button> */}
                 <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                     <img alt="example" style={{ width: '100%' }} src={previewImage} />
                 </Modal>
+                <div className={s.spinner_box} style={{display:props.loading?"block":"none"}}>
+                <Spin indicator={<FaCog className={s.spinner} style={{ color: 'white', fontSize: 40 }} spin />} />
+                </div>
 
             </div>
 
