@@ -22,8 +22,8 @@ const Home = ({ t }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
-  const maxCookiesAge = 3600;
-  const limit = 10;
+  const maxCookiesAge = 0;
+  const limit = 1;
 
   useEffect(() => {
     setShowTooltip(window.innerWidth > 600 ? true : false);

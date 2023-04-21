@@ -110,7 +110,8 @@
     .user {
         margin: 10px 0 0 10px;
         height: 50px;
-        width: 125px;
+        width: 95px;
+        font-size: 14px;
     }
 
     .main {
@@ -145,15 +146,18 @@
 
     .read_button,
     .save_button {
-        width: 105px;
+        width: 75px;
         height: 50px;
-        font-size: 18px;
+        font-size: 14px;
     }
 
     .local {
         grid-area: l;
-        column-gap: 10px;
+        column-gap: 0;
+        margin: auto;
         margin-right: 10px;
+        justify-content: space-between; 
+        width: 95px;
     }
 
     .counter {
@@ -165,6 +169,6 @@
     .user:hover,
     .selectedLanguage:hover,
     .unSelectedLanguage:hover {
-        box-shadow:none;
+        box-shadow: none;
     }
 }

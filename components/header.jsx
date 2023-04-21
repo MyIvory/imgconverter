@@ -6,7 +6,6 @@ import Link from "next/link"
 import { Tooltip, Modal } from "antd"
 
 const Header = ({ t, i18n, ...props }) => {
-    console.log(props.showTooltip )
     const [language, setLanguage] = useState('en');
     const { locale, locales, push } = useRouter()
     const [modal, contextHolder] = Modal.useModal();
