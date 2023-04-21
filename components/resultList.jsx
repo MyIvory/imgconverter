@@ -143,7 +143,7 @@ const ResultList = ({t,...props}) => {
 
                 </div>
                 <div className={s.tools}>
-                  <Tooltip title={props.isMounted ? t('tooltips.edit') : ''}>
+                  <Tooltip title={props.showTooltip && props.isMounted ? t('tooltips.edit') : ''}>
                     <AiOutlineEdit
                       className={s.icons}
                       style={{
@@ -155,14 +155,14 @@ const ResultList = ({t,...props}) => {
                       onClick={() => editItem(item)}
                     />
                   </Tooltip>
-                  <Tooltip title={props.isMounted ? t('tooltips.copy') : ''}>
+                  <Tooltip title={props.showTooltip && props.isMounted ? t('tooltips.copy') : ''}>
                     <AiOutlineCopy className={s.icons} 
                 
                     onClick={() => {
                       copyItem(item.id)
                     }} />
                   </Tooltip>
-                  <Tooltip title={props.isMounted ? t('tooltips.del') : ''}>
+                  <Tooltip title={props.showTooltip && props.isMounted ? t('tooltips.del') : ''}>
                     <AiOutlineDelete
                       className={s.icons}
                       style={{

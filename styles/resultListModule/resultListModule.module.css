@@ -83,19 +83,25 @@
     width: 90%;
     min-width: 0;
   }
+
   .item {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 90%;
     margin: 0 3px 20px 10px;
     color: white;
     grid-template-areas:
       "t t "
       "n  c ";
   }
-.tools{
-  border-bottom: 1px solid white;  
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  height: 30px;
-}
-  
+
+  .tools {
+    border-bottom: 1px solid white;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    height: 30px;
+  }
+
+  .item_content span {
+    display: block !important;
+   width: 100%;
+  }
 }

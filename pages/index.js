@@ -21,8 +21,13 @@ const Home = ({ t }) => {
   const [lastRequestTime, setLastRequestTime] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const maxCookiesAge = 3600;
-  const limit = 10
+  const limit = 10;
+
+  useEffect(() => {
+    setShowTooltip(window.innerWidth > 600 ? true : false);
+  }, []);
 
   useEffect(() => {
     setIsMounted(true);
@@ -83,7 +88,7 @@ const Home = ({ t }) => {
   }
 
   const handleUpload = async () => {
-    setLoading(true)
+    setLoading(true);
     if (fileList.length > 0) {
       // Проверка лимита на количество запросов
       if (counter >= limit) {
@@ -91,7 +96,7 @@ const Home = ({ t }) => {
           title: isMounted ? t("error") : "",
           content: <span>{isMounted ? t("limiterr") : ""}</span>,
         });
-        setLoading(false)
+        setLoading(false);
         return;
       }
 
@@ -102,7 +107,7 @@ const Home = ({ t }) => {
           title: isMounted ? t("error") : "",
           content: <span>{isMounted ? t("notimage") : ""}</span>,
         });
-        setLoading(false)
+        setLoading(false);
         return;
       }
       // Отправка запроса на сервер для получения текста из изображения
@@ -127,16 +132,15 @@ const Home = ({ t }) => {
         setFileList([]);
         incrementCounter();
         setLastRequestTime(Date.now());
-        setLoading(false)
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
     } else {
-      setLoading(false)
+      setLoading(false);
       modal.error({
         title: isMounted ? t("error") : "",
         content: <span>{isMounted ? t("nofile") : ""}</span>,
-        
       });
     }
   };
@@ -152,6 +156,7 @@ const Home = ({ t }) => {
         display={counter < limit ? counter : timer}
         isTimer={counter < limit ? false : true}
         isMounted={isMounted}
+        showTooltip = {showTooltip}
       />
       <div className="content">
         <ImgLoader
@@ -160,7 +165,10 @@ const Home = ({ t }) => {
           isMounted={isMounted}
           loading={loading}
         />
-        <ResultList contentItem={contentItem} isMounted={isMounted}  />
+        <ResultList contentItem={contentItem} 
+        isMounted={isMounted} 
+        showTooltip = {showTooltip}
+        />
       </div>
 
       {contextHolder}
