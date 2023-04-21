@@ -4,14 +4,26 @@ export default function Document() {
   return (
     <Html lang="uk">
       <Head>
+        <meta
+          name="google-site-verification"
+          content="lvvgLX1e7UpIk83saZtbjqL7usZPmsCs44yWzmqJvno"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="true"
         />
-        <link rel="alternate" hreflang="en" href="https://easytext.vercel.app/en" />
-        <link rel="alternate" hreflang="uk" href="https://easytext.vercel.app" />
+        <link
+          rel="alternate"
+          hreflang="en"
+          href="https://easytext.vercel.app/en"
+        />
+        <link
+          rel="alternate"
+          hreflang="uk"
+          href="https://easytext.vercel.app"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap"
           rel="stylesheet"
@@ -56,7 +68,7 @@ export default function Document() {
           content="EasyText is a powerful tool that lets you extract text from screenshots and images effortlessly. Whether you're a student, researcher, or just someone who needs to quickly convert an image into editable text, EasyText is the solution for you."
         />
         <meta property="og:url" content="https://easytext.vercel.app" />
-       {/*  <meta
+        {/*  <meta
           property="og:image"
           content="https://example.com/images/easytext.png"
         /> */}
