@@ -73,8 +73,6 @@ export default function Document() {
           content="/e_logo.png"
         /> 
         <meta property="og:image:alt" content="EasyText logo" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
         <meta property="og:locale" content="uk" />
         <meta property="og:locale:alternate" content="en" />
         <script
