@@ -75,8 +75,8 @@ export default function Document() {
         <meta property="og:image:alt" content="EasyText logo" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:locale" content="uk_UA" />
-        <meta property="og:locale:alternate" content="en_US" />
+        <meta property="og:locale" content="uk" />
+        <meta property="og:locale:alternate" content="en" />
         <script
           src="https://cdn.tiny.cloud/1/k8hk86kuqv28tv797qm250k1wpqak5b4w6gksbtsq50w27rm/tinymce/6/tinymce.min.js"
           referrerPolicy="origin"
