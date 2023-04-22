@@ -68,10 +68,10 @@ export default function Document() {
           content="EasyText is a powerful tool that lets you extract text from screenshots and images effortlessly. Whether you're a student, researcher, or just someone who needs to quickly convert an image into editable text, EasyText is the solution for you."
         />
         <meta property="og:url" content="https://easytext.vercel.app" />
-        {/*  <meta
+          <meta
           property="og:image"
-          content="https://example.com/images/easytext.png"
-        /> */}
+          content="/e_logo.png"
+        /> 
         <meta property="og:image:alt" content="EasyText logo" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
