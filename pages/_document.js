@@ -81,7 +81,22 @@ export default function Document() {
           src="https://cdn.tiny.cloud/1/k8hk86kuqv28tv797qm250k1wpqak5b4w6gksbtsq50w27rm/tinymce/6/tinymce.min.js"
           referrerPolicy="origin"
         ></script>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-SF49KWNEDJ"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SF49KWNEDJ');
+      `,
+          }}
+        />
       </Head>
+
       <body>
         <Main />
         <NextScript />
