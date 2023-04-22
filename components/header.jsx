@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { Tooltip, Modal } from "antd";
 import Image from "next/image";
+import { FiUser } from "react-icons/fi";
 
 const Header = ({ t, i18n, ...props }) => {
   const [language, setLanguage] = useState("en");
@@ -67,7 +68,8 @@ const Header = ({ t, i18n, ...props }) => {
             showError({ title: "warning.title", content: "warning.profile" });
           }}
         >
-          {props.isMounted ? t("profile").toUpperCase() : ""}
+          {/* {props.isMounted ? t("profile").toUpperCase() : ""} */}
+          <FiUser/>
         </div>
       </Tooltip>
       <div className={s.tools}>

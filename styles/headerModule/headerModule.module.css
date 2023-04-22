@@ -2,31 +2,31 @@
     background-color: black;
     color: white;
     width: 100%;
-    height: 50px;
+    height: 60px;
     display: grid;
-    grid-template-columns: 200px 1fr 200px;
-    grid-template-areas: "u t l";
+    grid-template-columns: 250px 1fr 50px 200px;
+    grid-template-areas: "logo t u l";
     font-weight: 400;
     font-size: 22px;
+    justify-content: center;
+    align-items: center;
 }
 .logo{
-    position: absolute;
-    top:0;
-    left: 30px;
+    grid-area: logo;
+    margin-left: 10px;
 }
 .user {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 0 10px 40px;
+    justify-self: end;
+    padding: 4px;
     grid-area: u;
     border-radius: 5px;
-    width: auto;
-    text-align: center;
     transition: all 500ms;
     background-color: white;
     color: black;
-display: none;
+    width: 40px;
 }
 
 .counter {
@@ -116,11 +116,13 @@ display: none;
         height: 50px;
         width: 95px;
         font-size: 14px;
+        padding: 0;
+        font-size: 24px;
     }
     .logo{
-        position: absolute;
-        top:7px;
-        left: 0px;
+        margin: 5px;
+        display: flex;
+        align-items: center;
     }
 
     .main {
@@ -130,7 +132,7 @@ display: none;
         grid-template-rows: 63px 63px;
         height: 130px;
         grid-template-areas:
-            "u . l"
+            "u logo l"
             "t t t";
     }
 
